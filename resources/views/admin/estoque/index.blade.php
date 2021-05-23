@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Gerenciamento de Recursos')
+@section('title', 'Gerenciamento de Estoque')
 @section('content')
 <?php 
 if(!isset($id)){
@@ -8,7 +8,7 @@ if(!isset($id)){
   }
 ?>  
 <div class="container">
-<a href="{{route('recursos.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Adicionar</a>
+<a href="{{route('estoque.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Adicionar</a>
 <div class="card shadow mb-4">
 
 <div class="card-body">
@@ -17,30 +17,30 @@ if(!isset($id)){
       <thead>
         <tr class="text-center">
           <th>ID</th>
-          <th>Descrição</th>
+          <th>Data</th>
+          <th>Horário</th>
+          <th>Recurso</th>
+          <th>Tipo</th>
           <th>Quantidade</th>
-          <th>Observação</th>
-          <th>Ações</th>
+          <th>Responsavel</th>
         </tr>
       </thead>
-      @foreach($recursos as $recurso)
+      @foreach($estoques as $estoque)
       <tbody>
         <tr>
-            <td>{{$recurso->id}}</td>
-            <td>{{$recurso->descricao}}</td>
-            <td>{{$recurso->quantidade}}</td>
-            <td>{{$recurso->observacao}}</td>
-            <td>
-                <a title="ver" href="{{route('recursos.ver', $recurso)}}"><i class="fas fa-eye text-primary mr-1"></i></a>
-                <a title="editar" href="{{route('recursos.edit', $recurso)}}"><i class="fas fa-edit text-info mr-1"></i></a>
-                <a title="remover" href="{{route('recursos.modal', $recurso)}}"><i class="fas fa-trash text-danger mr-1"></i></a>
-            </td>
+            <td>{{$estoque->id}}</td>
+            <td><?php echo date('d/m/Y', strtotime($estoque->data)); ?></td>
+            <td><?php echo date('H:i:s', strtotime($estoque->data)); ?></td>
+            <td>{{$estoque->recurso_descricao}}</td>
+            <td><?php echo($estoque->tipo == 'E' ? "Entrada" : "Saida"); ?></td>
+            <td>{{$estoque->quantidade}}</td>
+            <td>{{$estoque->responsavel}}</td>
         </tr>
       @endforeach
       
       </tbody>
   </table>
-  {{$recursos->links()}}
+  {{$estoques->links()}}
 </div>
 </div>
 </div>
@@ -64,7 +64,7 @@ if(!isset($id)){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <form method="POST" action="{{route('recursos.delete', $id)}}">
+        <form method="POST" action="">
           @csrf
           @method('delete')
           <button type="submit" class="btn btn-danger">Excluir</button>
