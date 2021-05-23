@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecursosController;
 use App\Http\Controllers\EstoqueController;
 
+Route::get('/', [RecursosController::class, 'index'])->name('inicio');
 /* Rotas de Recursos */
 Route::get('recursos/inserir', [RecursosController::class, 'inserir'])->name('recursos.inserir');
 Route::post('recursos', [RecursosController::class, 'insert'])->name('recursos.inserir_tabela');

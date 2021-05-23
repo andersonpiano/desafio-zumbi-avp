@@ -8,7 +8,7 @@ if(!isset($id)){
   }
 ?>  
 <div class="container">
-<a href="{{route('estoque.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Adicionar</a>
+<a href="{{route('estoque.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Registrar Entrada/Saida</a>
 <div class="card shadow mb-4">
 
 <div class="card-body">
@@ -16,7 +16,6 @@ if(!isset($id)){
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead>
         <tr class="text-center">
-          <th>ID</th>
           <th>Data</th>
           <th>Horário</th>
           <th>Recurso</th>
@@ -27,8 +26,12 @@ if(!isset($id)){
       </thead>
       @foreach($estoques as $estoque)
       <tbody>
-        <tr>
-            <td>{{$estoque->id}}</td>
+        <tr class="text-center"<?php
+        if($estoque->tipo == 'E') { 
+           echo 'style="color:green;"';
+          } else{
+            echo 'style="color:red;"';
+          }?>>
             <td><?php echo date('d/m/Y', strtotime($estoque->data)); ?></td>
             <td><?php echo date('H:i:s', strtotime($estoque->data)); ?></td>
             <td>{{$estoque->recurso_descricao}}</td>

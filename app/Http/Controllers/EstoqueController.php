@@ -28,16 +28,19 @@ class EstoqueController extends Controller
         $estoque->tipo = $request->tipo;
         $estoque->quantidade = $request->quantidade;
         $estoque->responsavel = $request->responsavel;
-        $estoque->save();
-
+        
         $recurso = recurso::find($request->recurso_id);
         if ($estoque->tipo == 'E'){
             $recurso->quantidade = $recurso->quantidade + $request->quantidade;
         } else {
             $recurso->quantidade = $recurso->quantidade - $request->quantidade;
         }
-        $recurso->save();
 
+        if($recurso->quantidade >= 0){
+            $estoque->save();
+            $recurso->save();
+        }
+        
         return redirect()->route('estoque');
     }
     

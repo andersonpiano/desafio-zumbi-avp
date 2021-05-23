@@ -4,11 +4,14 @@
 <?php
 $estoque = number_format($recurso->quantidade, 2, ',', '.');
 ?>
-<div class="jumbotron">
-  <h1 class="display-4"><?php echo $recurso->descricao; ?> </h1>
-  <p class="lead"><?php echo $recurso->observacao; ?> - Estoque: <?php echo $estoque; ?></p>
-  <hr class="my-4">
-  <p><?php echo $recurso->descricao; ?></p>
-  <a class="btn btn-primary btn-lg" href="{{route('recursos')}}" role="button">Outros recursos</a>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-header text-center">
+  <?php echo $recurso->descricao; ?>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Estoque: <?php echo $estoque; ?></li>
+    <li class="list-group-item">Descrição: <?php echo $recurso->observacao; ?></li>
+  </ul>
 </div>
 @endsection

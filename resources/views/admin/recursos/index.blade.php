@@ -18,18 +18,26 @@ if(!isset($id)){
         <tr class="text-center">
           <th>ID</th>
           <th>Descrição</th>
-          <th>Quantidade</th>
+          <th>Quantidade Atual</th>
           <th>Observação</th>
+          <th>Disponibilidade</th>
           <th>Ações</th>
         </tr>
       </thead>
       @foreach($recursos as $recurso)
       <tbody>
-        <tr>
+        <tr class="text-center"<?php
+        if($recurso->quantidade > 0) { 
+           echo 'style="color:green;"';
+          } else{
+            echo 'style="color:red;"';
+          }?>>
+          
             <td>{{$recurso->id}}</td>
             <td>{{$recurso->descricao}}</td>
             <td>{{$recurso->quantidade}}</td>
             <td>{{$recurso->observacao}}</td>
+            <td><?php echo($recurso->quantidade > 0 ? "Disponivel" : "Indisponivel"); ?></td>
             <td>
                 <a title="ver" href="{{route('recursos.ver', $recurso)}}"><i class="fas fa-eye text-primary mr-1"></i></a>
                 <a title="editar" href="{{route('recursos.edit', $recurso)}}"><i class="fas fa-edit text-info mr-1"></i></a>
